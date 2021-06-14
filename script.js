@@ -40,13 +40,20 @@ let bloqueElegido
 let contraseñaCompuesta
 let caracteresContraseña = []
 //Variables ejercicio extra
+
+
+
 let extraEjercicio = document.getElementById("extraEjercicio")
 extraEjercicio.addEventListener("click", calcularExtraEjercicio)
 let extraNumberArray = document.getElementById("extraNumberArray")
 let resultadoExtraEjercicio = document.getElementById("resultadoExtraEjercicio")
-let extraNumbers = [50,10,30,9,5]
+let extraNumbers = [5,10,30,9,5]
 let primeroMayor = 1
 let segundoMayor = 0
+let numerosPrueba_extra
+let posicionesComas = []
+let resultado = []
+let NoSense=[]
 
 
 //Funciones primer ejercicio
@@ -184,23 +191,26 @@ function calcularExtraEjercicio(){
 }
 
 function componerArrayExtra() {
-    extraNumberArray.value
+    numerosPrueba_extra = extraNumberArray.value
+    obtenerComas()
+    transfornarStringArray()
+    obtenerArrayResultado()
 }
 
 function extraCalcular(){
-    for (let i = 0; i < extraNumbers.length; i++) {
-        if (extraNumbers[i]>primeroMayor) {
+    for (let i = 0; i < resultado.length; i++) {
+        if (resultado[i]>primeroMayor) {
             let temporalNumnero = primeroMayor
-            primeroMayor = extraNumbers[i]
+            primeroMayor = resultado[i]
             segundoMayor = temporalNumnero
         }else{
-            if (primeroMayor>extraNumbers[i] && extraNumbers[i]>segundoMayor ) {
-                segundoMayor = extraNumbers[i]
-                console.log("el valor segundo cambio a " + extraNumbers[i])
+            if (primeroMayor>resultado[i] && resultado[i]>segundoMayor ) {
+                segundoMayor = resultado[i]
+                console.log("el valor segundo cambio a " + resultado[i])
             } 
         }
     }
-    alert(`El mayor valor es ${primeroMayor} y el segundo mayor es ${segundoMayor}`)
+    resultadoExtraEjercicio.innerHTML = `El mayor valor es ${primeroMayor} y el segundo mayor es ${segundoMayor}`
 }
 
 function reiniciarExtra(){
@@ -208,3 +218,33 @@ function reiniciarExtra(){
     segundoMayor = 0
 }
 
+
+function obtenerComas(){
+    posicionesComas=[]
+    for(let i=0;i<numerosPrueba_extra.length;i++){
+        if(numerosPrueba_extra[i] === ","){
+            posicionesComas.push(i)
+        }
+    }
+    posicionesComas.reverse()
+}
+
+function transfornarStringArray(){
+    NoSense = []
+    NoSense = numerosPrueba_extra.split("")
+    NoSense.push(",")
+}
+
+function obtenerArrayResultado(){
+    resultado=[]
+    for(i=0;i<=posicionesComas.length;i++){
+        let x = NoSense.slice(posicionesComas[i]+1,NoSense.length-1)
+        // console.log(x)
+        // console.log(NoSense)
+        NoSense.splice(posicionesComas[i]+1)
+        resultado.push(parseInt(x.join("")))
+        // console.log(i)
+    }
+    resultado.reverse()
+    // console.log(resultado)
+}
