@@ -39,7 +39,14 @@ let bigData = [
 let bloqueElegido
 let contraseñaCompuesta
 let caracteresContraseña = []
-
+//Variables ejercicio extra
+let extraEjercicio = document.getElementById("extraEjercicio")
+extraEjercicio.addEventListener("click", calcularExtraEjercicio)
+let extraNumberArray = document.getElementById("extraNumberArray")
+let resultadoExtraEjercicio = document.getElementById("resultadoExtraEjercicio")
+let extraNumbers = [50,10,30,9,5]
+let primeroMayor = 1
+let segundoMayor = 0
 
 
 //Funciones primer ejercicio
@@ -166,3 +173,38 @@ function mostrarContraseña(){
     contraseñaCompuesta = []
     caracteresContraseña = []
 }
+
+// funciones extra ejercicio
+//extraNumbers
+
+function calcularExtraEjercicio(){
+    componerArrayExtra()
+    extraCalcular()
+    reiniciarExtra()
+}
+
+function componerArrayExtra() {
+    extraNumberArray.value
+}
+
+function extraCalcular(){
+    for (let i = 0; i < extraNumbers.length; i++) {
+        if (extraNumbers[i]>primeroMayor) {
+            let temporalNumnero = primeroMayor
+            primeroMayor = extraNumbers[i]
+            segundoMayor = temporalNumnero
+        }else{
+            if (primeroMayor>extraNumbers[i] && extraNumbers[i]>segundoMayor ) {
+                segundoMayor = extraNumbers[i]
+                console.log("el valor segundo cambio a " + extraNumbers[i])
+            } 
+        }
+    }
+    alert(`El mayor valor es ${primeroMayor} y el segundo mayor es ${segundoMayor}`)
+}
+
+function reiniciarExtra(){
+    primeroMayor = 1
+    segundoMayor = 0
+}
+
